@@ -1,0 +1,64 @@
+import random
+
+cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+
+print("Do you want to play a game of Blackjack? Type 'y' or 'n': ")
+
+computer_card = random.sample(cards, 2)
+
+my_card = random.sample(cards, 2)
+
+def calculate_score(card_list):
+     score = sum(card_list)
+     if 11 in card_list and score > 21:
+          card_list.remove(11)
+          card_list.append(1)
+          score = sum(card_list)
+     return score
+
+
+print(f"Your Cards :{my_card}, current_score: {calculate_score(my_card)} \n Computer's first card : {computer_card[0]}")
+
+end_of_game = True
+
+while end_of_game:
+     my_score = calculate_score(my_card)
+     computer_score = calculate_score(computer_card)
+     
+     if my_score == 21 or computer_score == 21:
+          end_of_game = False
+          if my_score == computer_score:
+               print("It's a draw")
+          elif my_score > computer_score:
+               print("You win the Game")
+          else:
+               print("Computer won")
+          
+     else:
+          choice = input("Type 'y' to get another card, type 'n' to pass: ").lower()
+          if choice == "y":
+               my_card.extend(random.sample(cards, 1))
+               computer_card.extend(random.sample(cards, 1))
+               print(f"Your Final hand: {my_card}, current_score: {sum(my_card)}")
+               print(f"Computer's final hand: {computer_card}, final score: {sum(computer_card)}")
+               if my_score == computer_score:
+                    print("It's a draw")
+               elif my_score > computer_score:
+                    print("You win the Game")
+               else:
+                    print("Computer won")
+               end_of_game = False
+                    
+          elif choice == "n":
+               end_of_game = False
+               print(f"Your Final hand: {my_card}, current_score: {my_score}")
+               print(f"Computer's final hand: {computer_card}, final score: {computer_score}")
+               if my_score == computer_score:
+                    print("It's a draw")
+               elif my_score > computer_score:
+                    print("You win the Game")
+               else:
+                    print("Computer won")
+               end_of_game = False                       
+        
+  
