@@ -1,0 +1,47 @@
+import random
+
+print("Welcome to the Number Guessing Game!")
+print("I'm thinking of a number between 1 and 100.")
+
+def guessed_number():
+    y = [i for i in range(101)]
+    return random.choice(y)
+
+def selection():
+    choose = input("Choose a difficulty. Type 'easy' or 'hard': ").lower()
+    guessed_number = guessed_number()
+    if choose == "easy":
+        no_of_attempts = 10
+    elif choose == "hard":
+        no_of_attempts = 5
+    else:
+        print("Invalid input. Please choose 'easy' or 'hard'.")
+        return
+
+    while no_of_attempts > 0:
+        print(f"You have {no_of_attempts} attempts remaining to guess the number.")
+        score = int(input("Make a guess: "))
+
+        if score > guessed_number:
+            no_of_attempts -= 1
+            print("Too high. Guess again")
+        elif score < guessed_number:
+            no_of_attempts -= 1
+            print("Too low. Guess again")
+        else:
+            print("Congratulations! You won")
+            play_again = input("Do you want to play again? Type 'yes' or 'no': ").lower()
+            if play_again == 'yes':
+                return selection()
+            else:
+                print("Thanks for playing!")
+                return
+
+    print(f"Out of attempts. The correct answer was {guessed_number}")
+    play_again = input("Do you want to play again? Type 'yes' or 'no': ").lower()
+    if play_again == 'yes':
+        return selection()
+    else:
+        print("Thanks for playing!")
+
+selection()
