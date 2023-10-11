@@ -1,0 +1,72 @@
+MENU = {
+    "espresso": {
+        "ingredients": {
+            "water": 50,
+            "coffee": 18,
+        },
+        "cost": 1.5,
+    },
+    "latte": {
+        "ingredients": {
+            "water": 200,
+            "milk": 150,
+            "coffee": 24,
+        },
+        "cost": 2.5,
+    },
+    "cappuccino": {
+        "ingredients": {
+            "water": 250,
+            "milk": 100,
+            "coffee": 24,
+        },
+        "cost": 3.0,
+    }
+}
+
+is_on = True
+total_revenue = 0
+resources = {
+    "water": 300,
+    "milk": 200,
+    "coffee": 100
+}
+
+def is_sufficient(ingredients):
+    shortages = []
+    for item, quantity in ingredients.items():
+        if quantity > resources.get(item, 0):
+            shortages.append(item)
+    return shortages
+
+while is_on:
+    selection = input("What would you like? (espresso/latte/cappuccino): ").lower()
+    if selection == "off":
+        is_on = False
+    elif selection == "report":
+        print(f"Milk: {resources['milk']}ml")
+        print(f"Coffee: {resources['coffee']}g")
+        print(f"Money: ${total_revenue}")
+        print(f"Water: {resources['water']}ml")
+    elif selection in ["latte", "cappuccino", "espresso"]:
+        print("Please insert coins.")
+        quarters = int(input("how many quarters?: "))
+        dimes = int(input("how many dimes?: "))
+        nickels = int(input("how many nickels?: "))
+        pennies = int(input("how many pennies?: "))
+        monetary_value = 0.25 * quarters + 0.10 * dimes + 0.05 * nickels + 0.01 * pennies
+        original_price = MENU[selection]["cost"]
+        change = round(monetary_value - original_price, 2)
+
+        if change < 0:
+            print("Sorry, that's not enough money. Money refunded.")
+        else:
+            shortages = is_sufficient(MENU[selection]["ingredients"])
+            if shortages:
+                print(f"Sorry, not enough resources: {', '.join(shortages)}. Money refunded.")
+            else:
+                print(f"Here is ${change} in change.")
+                print(f"Here is your {selection} ☕️. Enjoy!")
+                for item, quantity in MENU[selection]["ingredients"].items():
+                    resources[item] -= quantity
+                total_revenue += original_price
