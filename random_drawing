@@ -1,0 +1,40 @@
+common_colors = [
+    'red',
+    'green',
+    'blue',
+    'yellow',
+    'orange',
+    'purple',
+    'pink',
+    'brown',
+    'black',
+    'white',
+    'gray',  # or 'grey'
+    'cyan',
+    'magenta',
+    'turquoise',
+    'violet',
+    'maroon',
+    'gold',
+    'olive',
+    'chartreuse'
+]
+
+from turtle import Turtle, Screen
+import random
+
+x = [90, 180, 270, 360]
+
+jim = Turtle()
+jim.pensize(4)
+jim.speed(0)
+def zigzag_pattern():
+      for _ in range(500):
+            jim.forward(10)
+            jim.right(random.choice(x))
+            jim.color(random.choice(common_colors))
+
+zigzag_pattern()
+
+screen = Screen()
+screen.exitonclick()
