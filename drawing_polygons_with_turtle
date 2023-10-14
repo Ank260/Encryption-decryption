@@ -1,0 +1,18 @@
+from turtle import Turtle, Screen
+
+jim = Turtle()
+jim.color("red")
+
+colors = {3:"red", 4:"cyan", 5:"black", 6:"blue", 7:"brown", 8:"chocolate", 9:"purple", 10:"yellow"}
+def draw():
+     angle = 360
+     for i in range(3, 11):
+          for k in range(i):
+               cut = 360/i
+               jim.pencolor(colors[i])
+               jim.forward(100)
+               jim.right(cut)
+
+draw()
+screen = Screen()
+screen.exitonclick()
